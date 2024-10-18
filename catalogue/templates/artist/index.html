@@ -1,0 +1,31 @@
+{% extends 'layouts/base.html' %}
+
+
+{% block title %}Liste des artistes{% endblock %}
+
+
+{% block content %}
+
+    <h1>Liste des artistes</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Prénom</th>
+                <th>Nom</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for artist in artists %}
+            <tr>
+                <td>{{ artist.firstname }}</td>
+                <td><a href="{% url 'catalogue:artist-show' artist.id %}">{{ artist.lastname }}</a></td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="2">Aucun artiste trouvé dans la base de données.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
