@@ -22,17 +22,13 @@ def artist_show(request, artist_id):
 
 def edit(request, artist_id):
     artist = get_object_or_404(Artist, id=artist_id)
-    form = ArtistForm(instance=Artist)
-    return render(request, 'artist/edit.html', context={'artist': artist, 'form': form})
+    form = ArtistForm(request.POST or None, instance=artist)
 
-
-def update(request, artist_id):
-    artist = get_object_or_404(Artist, id=artist_id)
     if request.method == 'POST':
-        form = ArtistForm(request.POST, instance=artist)
         if form.is_valid():
             form.save()
             return redirect('catalogue:artist-show', artist_id=artist.id)
+
     return render(request, 'artist/edit.html', {'form': form, 'artist': artist})
 
 
