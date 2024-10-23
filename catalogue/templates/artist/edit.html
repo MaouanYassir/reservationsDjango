@@ -1,4 +1,3 @@
-<!-- reservations/catalogue/templates/artist/edit.html -->
 {% extends 'layouts/base.html' %}
 
 {% block title %}Modifier un artiste{% endblock %}
@@ -8,8 +7,9 @@
 
     <form action="{% url 'catalogue:artist-update' artist.id %}" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Modifier</button>
+        <input type="hidden" name="_method" value="PUT">
+        {{ form }}
+        <button>Modifier</button>
         <a href="{% url 'catalogue:artist-show' artist.id %}">Annuler</a>
     </form>
 

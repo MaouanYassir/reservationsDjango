@@ -34,3 +34,14 @@ def update(request, artist_id):
             form.save()
             return redirect('catalogue:artist-show', artist_id=artist.id)
     return render(request, 'artist/edit.html', {'form': form, 'artist': artist})
+
+
+def create(request):
+    form = ArtistForm(request.POST or None)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('catalogue:artist-index')
+
+    return render(request, 'artist/create.html', context={'form': form})

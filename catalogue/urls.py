@@ -8,4 +8,5 @@ urlpatterns = [
     path('artist/<int:artist_id>/', views.artist_show, name='artist-show'),  # route pour afficher un seul artist
     path('artist/edit/<int:artist_id>/', views.artist.edit, name='artist-edit'),  # route pour editer un artist
     path('artist/update/<int:artist_id>/', views.artist.update, name='artist-update'),  # route pour modifier un artist
+    path('artist/create/', views.artist.create, name='artist-create'),
 ]
