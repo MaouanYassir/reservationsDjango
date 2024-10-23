@@ -45,3 +45,16 @@ def create(request):
             return redirect('catalogue:artist-index')
 
     return render(request, 'artist/create.html', context={'form': form})
+
+
+def delete(request, artist_id):
+    artist = get_object_or_404(Artist, id=artist_id)
+
+    if request.method == "POST":
+        artist.delete()
+        return redirect('catalogue:artist-index')
+
+    # Si la méthode n'est pas POST, rediriger vers la page de l'artiste
+    return render(request, 'catalogue/artist/show.html', {
+        'artist': artist,
+    })
