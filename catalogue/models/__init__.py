@@ -1,1 +1,2 @@
-from .artists import Artist
+from .artists import *
+from .user_meta import *
