@@ -131,3 +131,12 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# URL de connexion et de redirection après connexion
+LOGIN_URL = '/accounts/login'
+LOGIN_REDIRECT_URL = '/'
+
+# Configuration de l'email
+# https://docs.djangoproject.com/fr/5.1/topics/email/#smtp-backend
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
