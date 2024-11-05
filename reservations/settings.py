@@ -135,7 +135,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # URL de connexion et de redirection après connexion
 LOGIN_URL = '/accounts/login'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 
 # Configuration de l'email
 # https://docs.djangoproject.com/fr/5.1/topics/email/#smtp-backend
