@@ -5,6 +5,7 @@ from catalogue.models import Artist
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
+from django.conf import settings
 
 
 # Fonction pour afficher la liste de tous les artistes
@@ -38,6 +39,9 @@ def edit(request, artist_id):
 
 
 def create(request):
+    if not request.user.is_authenticated or not request.user.has_perm('add_artist'):
+        return redirect(f"{settings.LOGIN_URL}?next={request.path}")
+
     form = ArtistForm(request.POST or None)
 
     if request.method == 'POST':
