@@ -3,9 +3,26 @@ from django.shortcuts import render, get_object_or_404, redirect
 from catalogue.forms.ArtistForm import ArtistForm
 from catalogue.models import Artist
 from django.contrib.auth.decorators import login_required, permission_required
+
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
 from django.conf import settings
+
+
+def group_required(*group_names):
+    """
+    Decorator that checks if the user is in the specified groups.
+    """
+
+    def in_groups(user):
+        # Vérifie si l'utilisateur est authentifié
+        if user.is_authenticated:
+            # Vérifie si l'utilisateur appartient à l'un des groupes spécifiés
+            if user.groups.filter(name__in=group_names).exists() or user.is_superuser:
+                return True
+        return False
+
+    return user_passes_test(in_groups)
 
 
 # Fonction pour afficher la liste de tous les artistes
@@ -23,7 +40,9 @@ def artist_show(request, artist_id):
 
     return render(request, 'artist/show.html', context={'artist': artist})
 
+
 @login_required
+@group_required('ADMIN')
 def edit(request, artist_id):
     artist = get_object_or_404(Artist, id=artist_id)
     form = ArtistForm(request.POST or None, instance=artist)
@@ -38,10 +57,9 @@ def edit(request, artist_id):
     return render(request, 'artist/edit.html', {'form': form, 'artist': artist})
 
 
+@login_required
+@group_required('ADMIN')
 def create(request):
-    if not request.user.is_authenticated or not request.user.has_perm('add_artist'):
-        return redirect(f"{settings.LOGIN_URL}?next={request.path}")
-
     form = ArtistForm(request.POST or None)
 
     if request.method == 'POST':
@@ -57,6 +75,7 @@ def create(request):
 
 
 @login_required
+@group_required('ADMIN')
 @permission_required('catalog.can_delete', raise_exception=True)
 def delete(request, artist_id):
     artist = get_object_or_404(Artist, id=artist_id)
