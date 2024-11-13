@@ -1,0 +1,36 @@
+[
+    {
+        "model": "catalogue.Shows",
+        "pk": 1,
+        "fields": {
+            "name": "Spectacle A",
+            "date": "2024-12-01"
+        }
+    },
+    {
+        "model": "catalogue.Shows",
+        "pk": 2,
+        "fields": {
+            "name": "Spectacle B",
+            "date": "2024-12-10"
+        }
+    },
+    {
+        "model": "catalogue.Prices",
+        "pk": 1,
+        "fields": {
+            "type": "Étudiant",
+            "price": "10.00",
+            "shows": [1, 2]
+        }
+    },
+    {
+        "model": "catalogue.Prices",
+        "pk": 2,
+        "fields": {
+            "type": "Adulte",
+            "price": "20.00",
+            "shows": [1]
+        }
+    }
+]

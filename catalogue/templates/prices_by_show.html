@@ -1,0 +1,15 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+    <h1>Tarifs pour le Spectacle : {{ show.name }}</h1>
+
+    {% if prices %}
+        <ul>
+            {% for price in prices %}
+                <li>Type de tarif : {{ price.type }} - Prix : {{ price.price }} €</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucun tarif disponible pour ce spectacle.</p>
+    {% endif %}
+{% endblock %}
